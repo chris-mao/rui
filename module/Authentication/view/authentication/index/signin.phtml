@@ -1,0 +1,57 @@
+<?php $this->headTitle($this->translate('登录到您的帐户')); ?>
+
+<script type="text/javascript">
+    function submitform() {
+        $(":submit").attr("disabled", true);
+        if (jQuery.trim($("#login_name").val()) == "") {
+            alert("请输入用户名");
+            $("#login_name").focus();
+            $(":submit").attr("disabled", false);
+            return false;
+        }
+
+        if ("" == jQuery.trim($("#password").val())) {
+            alert("请输入密码");
+            $("#password").focus();
+            $(":submit").attr("disabled", false);
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-md-offset-6 col-xs-4 col-xs-offset-4">
+        <form class="form-signin" role="form" method="POST" action="" onsubmit="return submitform();">
+            <input type="hidden" id="goto" name="goto" value="<?php echo $this->goto; ?>"/>
+            <span class="emerson"></span>
+            <input type="text" class="form-control" id="login_name" name="login_name"
+                   placeholder="<?php echo $this->translate('登录名'); ?>" required autofocus autocomplete="off">
+            <input type="password" class="form-control" id="password" name="password" autocomplete="off"
+                   placeholder="<?php echo $this->translate('登录密码'); ?>" required>
+            <div class="form-group text-right">
+                <a class=""
+                   href="<?php echo $this->baseUrl . '/admin/user/findback.psd'; ?>"><?php echo $this->translate('忘记密码'); ?></a>
+            </div>
+            <button class="btn btn-primary btn-lg btn-block" type="submit"
+                    data-loading-text="Sign in..."><?php echo $this->translate('登录系统'); ?></button>
+        </form>
+        <?php
+        if (($this->messages != null) && (count($this->messages) > 0)) {
+            echo '<ul class="alert text-danger">';
+            foreach ($this->messages as $message) {
+                if (!empty($message)) {
+                    echo '<li>' . $this->escapeHtml($message) . '</li>';
+                }
+            }
+            echo '</ul>';
+        }
+        ?>
+    </div>
+</div>
+
+<!-- <div class="row" style="margin-top:3rem;">
+    <p class=" text-left col-lg-6 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-md-offset-6 col-xs-4 col-xs-offset-4">
+        为达到最佳用户体验，建议使用<span style="font-weight:bold;color:red;">Firefox浏览器</span>，点击<a target="_blank" href="http://www.firefox.com.cn/">这里</a>下载。
+    </p>
+</div> -->

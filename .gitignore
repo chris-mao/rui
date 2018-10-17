@@ -4,3 +4,8 @@ config/development.config.php
 data/cache/*
 !data/cache/.gitkeep
 phpunit.xml
+.idea/modules.xml
+.idea/php.xml
+.idea/rui.iml
+.idea/vcs.xml
+.idea/workspace.xml
