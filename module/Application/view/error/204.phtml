@@ -1,0 +1,133 @@
+<?php $this->headTitle($this->translate('无匹配数据')); ?>
+
+<div class='page-header'>
+    <h1 class='text-warning'><?= $this->translate('无匹配数据');?>
+        <small class='text-info'>
+        <?= $this->translate('没有匹配到符合条件的数据'); ?>
+        </small>
+    </h1>
+</div>
+
+<div class='row text-muted text-center'>
+    <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+        <p><?= $this->translate('亲，看到这个页面时请不要慌张，这并不代表您做错了什么，只是您没有获得相应的系统授权。'); ?></p>
+        <p><?php echo $this->content ?></p>
+    </div>
+</div>
+
+<?php $this->headTitle($this->translate('无效路径')); ?>
+
+<div class="page-header">
+    <h1 class='text-warning'><?php echo $this->message ?>
+        <small class='text-info'>
+        <?php 
+            if (isset($this->reason) && $this->reason) {
+                $reasonMessage= '';
+                switch ($this->reason) {
+                    case 'error-controller-cannot-dispatch':
+                        $reasonMessage = $this->translate('亲，控制器无法分发这个请求');
+                        break;
+                    case 'error-controller-not-found':
+                        $reasonMessage = $this->translate('亲，您请求的地址不能映射到一个存在的控制器');
+                        break;
+                    case 'error-controller-invalid':
+                        $reasonMessage = $this->translate('亲，控制器无效');
+                        break;
+                    case 'error-router-no-match':
+                        $reasonMessage = $this->translate('亲，您请求的地址没有匹配的路由');
+                        break;
+                    default:
+                        $reasonMessage = $this->translate('亲，不知道什么原因找不到这个页面了');
+                        break;
+                }
+                echo $reasonMessage;
+            }
+        ?>
+        </small>
+    </h1>
+</div>
+<?php if (isset($this->controller) && $this->controller): ?>
+    <div class="well">
+        <dl>
+            <dt><?= $this->translate('Controller') ?>:</dt>
+            <dd><?= $this->escapeHtml($this->controller) ?>
+                <?php
+                if (isset($this->controller_class)
+                    && $this->controller_class
+                    && $this->controller_class != $this->controller
+                ) {
+                    echo '(' . sprintf($this->translate('resolves to %s'), $this->escapeHtml($this->controller_class)) . ')';
+                }
+                ?>
+            </dd>
+        </dl>
+    </div>
+<?php endif ?>
+
+<?php if (isset($this->display_exceptions) && $this->display_exceptions): ?>
+
+<?php if(isset($this->exception) && $this->exception instanceof Exception): ?>
+<div class="well">
+    <h2><?= $this->translate('附加信息') ?>:</h2>
+    <h3><?= get_class($this->exception); ?></h3>
+    <dl>
+        <dt><?php echo $this->translate('文件') ?>:</dt>
+        <dd>
+            <pre class="prettyprint linenums"><?php echo $this->exception->getFile() ?>:<?php echo $this->exception->getLine() ?></pre>
+        </dd>
+        <dt><?php echo $this->translate('消息') ?>:</dt>
+        <dd>
+            <pre class="prettyprint linenums"><?php echo $this->exception->getMessage() ?></pre>
+        </dd>
+        <dt><?php echo $this->translate('堆栈') ?>:</dt>
+        <dd>
+            <pre class="prettyprint linenums"><?php echo $this->exception->getTraceAsString() ?></pre>
+        </dd>
+    </dl>
+</div>
+<?php
+    $e = $this->exception->getPrevious();
+    if ($e) :
+?>
+<div class="well">
+    <h2><?php echo $this->translate('异常') ?>:</h2>
+    <ul class="unstyled">
+        <?php while($e) : ?>
+        <li>
+            <h3><?php echo get_class($e); ?></h3>
+            <dl>
+                <dt><?php echo $this->translate('文件') ?>:</dt>
+                <dd>
+                    <pre class="prettyprint linenums"><?php echo $e->getFile() ?>:<?php echo $e->getLine() ?></pre>
+                </dd>
+                <dt><?php echo $this->translate('消息') ?>:</dt>
+                <dd>
+                    <pre class="prettyprint linenums"><?php echo $e->getMessage() ?></pre>
+                </dd>
+                <dt><?php echo $this->translate('堆栈') ?>:</dt>
+                <dd>
+                    <pre class="prettyprint linenums"><?php echo $e->getTraceAsString() ?></pre>
+                </dd>
+            </dl>
+        </li>
+        <?php
+            $e = $e->getPrevious();
+            endwhile;
+        ?>
+    </ul>
+</div>
+<?php endif; ?>
+
+<?php else: ?>
+
+    <h3><?php echo $this->translate('无有效异常') ?></h3>
+
+<?php endif ?>
+
+<?php endif ?>
+
+<div class='row text-muted text-center'>
+    <div class='col-lg-12 col-md-12 col-sm-12 col-xs-12'>
+        <p>202 No Content PAGE</p>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<div align='center' style='width:200px;margin:20px auto;display:block;'><img src='cid:logo-file' ></div>
+<div style='margin-top:30px;margin-left:auto;margin-right:auto;font-size:14px;font-family:tahoma;'>
+    尊敬的 <?=$this->user . ' / ' . $this->customerName ?>，<br>
+    <p style='line-height:28px;'>
+        我司已接受您于 <em style='font-weight:bold;margin:0 4px;'><?=$this->orderDate?></em>提交了一份产品采购订单，订单总金额为 <span style='font-size:18px;font-weight:bold;text-align:right;margin:0 4px;color:#FF5500;'><?= number_format($this->orderAmount, 2) ?></span>。
+        如有任何问题可随时与我司客服人员<a href='mailto:chris.mao@emerson.com'>XXXX</a>联系！祝您生活愉快！
+    </p>
+    <p style='font-size:12px;text-align:right;margin-right:20px;'>
+        <a href='<?=$this->url('order/query');?>'>点击这里下载PDF格式订单文件</a>
+    </p>
+    <p style='font-size:12px;text-align:right;margin-right:20px;'>
+        <a href='<?=$this->url('order/query');?>'>点击这里查看订单详情</a>
+    </p>
+    <p style='text-align:right;margin-right:20px;font-size:12px;color:gray;'>
+        此邮件由系统自动发送，请勿回复
+    </p>
+</div>

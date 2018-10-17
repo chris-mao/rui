@@ -1,0 +1,14 @@
+<div align='center' style='width:200px;margin:20px auto;display:block;'><img src='cid:logo-file' ></div>
+<div style='margin-top:30px;margin-left:auto;margin-right:auto;font-size:14px;font-family:tahoma;'>
+    您好 <?=$this->user?>，<br>
+    <p style='line-height:28px;'>
+        客户<strong style='margin-left:6px;'><?=$this->customerName?></strong>于 <em style='font-weight:bold;margin:0 4px;'><?=$this->orderDate?></em>提交了一份产品采购订单（<span style='font-size:12px;'>订单号：<em style='text-decoration:underline;'><?=$this->orderNumber?></em></span>），订单总金额为 <span style='font-size:18px;font-weight:bold;text-align:right;margin:0 4px;color:#FF5500;'><?= number_format($this->orderAmount, 2) ?></span>
+    </p>
+    <p style='font-size:12px;text-align:right;margin-right:20px;'>
+        <a href='<?=$this->serverUrl()?>'>点击这里下载PDF格式订单文件</a>
+    </p>
+    <p style='font-size:12px;text-align:right;margin-right:20px;'>
+        <a href='<?=$this->serverUrl()?>'>点击这里查看订单详情</a>
+    </p>
+    <p style='text-align:right;margin-right:20px;font-size:12px;color:gray;'>此邮件由系统自动发送，请勿回复</p>
+</div>
