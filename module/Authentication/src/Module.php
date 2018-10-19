@@ -54,24 +54,25 @@ class Module implements ConfigProviderInterface
 //                        $routeName = $event->getRouteMatch()->getMatchedRouteName();
 //                        var_dump($routeName);
 //                        if (!in_array($routeName, array('authentication', 'authentication/signin', 'authentication/signout'))) {
-//                        $url = $event->getRouter()->assemble(array(), array('name' => 'authentication'));
-//                        $url .= '?r=' . $event->getRequest()->getRequestUri();
-//                        $response = $event->getResponse();
-//                        $response->getHeaders()->addHeaderLine('Location', $url);
-//                        $response->setStatusCode(302);
-//                        $response->sendHeaders();
+//                            $url = $event->getRouter()->assemble(array(), array('name' => 'authentication'));
+//                            $url .= '?r=' . $event->getRequest()->getRequestUri();
+//                            $response = $event->getResponse();
+//                            $response->getHeaders()->addHeaderLine('Location', $url);
+//                            $response->setStatusCode(302);
+//                            $response->sendHeaders();
 //                            $event->stopPropagation();
 //                        }
 //                    }, -100);
-//                return $response;
+//                    return $response;
                 } else {
                     var_dump('用户已完成身份认证');
+                    var_dump($authService->getIdentity());
                     /*
                      * 如果没有在配置文件<b>application.config.php</b>中设定<b>authorization_required</b>的值，或是设定为true
                      * 则表示需要对使用者进行权限控制
                      */
                     if (!key_exists('authorization_required', $configArray) || (true == $configArray['authorization_required'])) {
-                        $eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, "onRoute"), -100);
+                        $eventManager->attach(MvcEvent::EVENT_ROUTE, array($this, "onRoute"), 100);
                     }
                 }
             } catch (ServiceNotFoundException $e) {
@@ -87,6 +88,6 @@ class Module implements ConfigProviderInterface
      */
     public function onRoute(MvcEvent $event)
     {
-        echo 'todo onRouteEvent';
+        //todo 判断用户是否拥有相应的方问权限
     }
 }

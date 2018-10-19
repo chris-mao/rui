@@ -28,12 +28,11 @@ class IndexControllerFactory implements FactoryInterface
      */
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        echo 'IndexControllerFactory ===> '. $requestedName;
         try {
             $authService = $container->get('AuthenticationService');
             return new IndexController($authService);
         } catch (NotFoundExceptionInterface $e) {
-            return;
+            throw new ServiceNotFoundException('系统中尚未提供身份认证服务', 0, $e);
         } catch (ContainerExceptionInterface $e) {
             return;
         }

@@ -63,9 +63,9 @@ return [
         'aliases' => [],
         'factories' => [
             'AuthenticationService' => AuthenticationServiceFactory::class,
-            'PermissionService'     => 'Authentication\Factory\PermissionServiceFactory',
-            'RoleService'           => 'Authentication\Factory\RoleServiceFactory',
-            'CredentialService'     => 'Authentication\Factory\CredentialServiceFactory',
+//            'PermissionService'     => 'Authentication\Factory\PermissionServiceFactory',
+//            'RoleService'           => 'Authentication\Factory\RoleServiceFactory',
+//            'CredentialService'     => 'Authentication\Factory\CredentialServiceFactory',
         ],
     ],
 

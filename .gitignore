@@ -2,6 +2,7 @@
 vendor/
 config/development.config.php
 data/cache/*
+data/logs/*
 !data/cache/.gitkeep
 phpunit.xml
 .idea/modules.xml
@@ -9,3 +10,4 @@ phpunit.xml
 .idea/rui.iml
 .idea/vcs.xml
 .idea/workspace.xml
+zendframework-ZendSkeletonModule-947ed32/

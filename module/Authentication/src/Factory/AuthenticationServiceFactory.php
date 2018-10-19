@@ -6,12 +6,13 @@ use Interop\Container\ContainerInterface;
 use Interop\Container\Exception\ContainerException;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Zend\Authentication\Adapter\DbTable\CredentialTreatmentAdapter;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
 use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\Authentication\Storage\Session;
-use Zend\Authentication\AuthenticationService;
-use Authentication\Adapter\RuiAuthenticationAdapter as AuthAdapter;
+use Zend\Authentication\Adapter\Ldap as LdapAdapter;
+use Authentication\Service\RuiAuthenticationService;
 
 /**
  * 读取全局配置文件<b>global.php</b>中的数据库适配器服务组件
@@ -40,10 +41,14 @@ class AuthenticationServiceFactory implements FactoryInterface
         try {
             $dbAdapter = $container->get('MysqlAdapter');
             $storage = new Session('rui_1124');
-            $authDatabaseAdapter = new AuthAdapter($dbAdapter, 'vw_auth_user', 'user_name', 'user_psd', "MD5(CONCAT('" . AuthAdapter::STATIC_SALT . "', ?, salt))");
-            return new AuthenticationService($storage, $authDatabaseAdapter);
+
+//            $authDatabaseAdapter = new RuiAuthenticationAdapter($dbAdapter, 'vw_auth_user', 'user_name', 'user_psd', "MD5(CONCAT('" . RuiAuthenticationService::STATIC_SALT . "', ?, salt))");
+            $authDatabaseAdapter = new CredentialTreatmentAdapter($dbAdapter, 'vw_auth_user', 'user_name', 'user_psd', "MD5(CONCAT('staticSalt', ?, salt))");
+
+            $ldapAdapter = new LdapAdapter();
+            return new RuiAuthenticationService($storage, $authDatabaseAdapter, $ldapAdapter);
         } catch (NotFoundExceptionInterface $e) {
-            throw new ServiceNotFoundException('没有指定数据库适配器', 0, $e);
+            throw new ServiceNotFoundException('系统中尚未定义数据库适配器', 0, $e);
         } catch (ContainerExceptionInterface $e) {
             die($e->getMessage());
         }
