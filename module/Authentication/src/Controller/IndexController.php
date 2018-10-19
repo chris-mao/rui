@@ -4,6 +4,8 @@ namespace Authentication\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Authentication\AuthenticationService;
+use Zend\ServiceManager\Exception\ServiceNotFoundException;
 
 /**
  * 用户身份认证
@@ -15,19 +17,28 @@ use Zend\View\Model\ViewModel;
  * @version 1.0
  *
  */
-class IndexController extends AbstractActionController {
+class IndexController extends AbstractActionController
+{
 
-    public function indexAction()
+    /**
+     * @var \Zend\Authentication\AuthenticationService
+     */
+    private $_authService;
+
+    public function __construct(AuthenticationService $authService)
     {
-        return new ViewModel();
+        $this->_authService = $authService;
     }
 
     /**
-     * 用户登录
-     *
      * @return ViewModel
+     * @throws ServiceNotFoundException
      */
-    public function signinAction() {
+    public function signinAction()
+    {
+//        $this->redirect()->toRoute('home');
+//        $this->_authService->hasIdentity();
+        $this->layout('layout/signin');
         return new ViewModel();
     }
 
@@ -36,7 +47,8 @@ class IndexController extends AbstractActionController {
      *
      * @return ViewModel
      */
-    public function signoutAction() {
+    public function signoutAction()
+    {
         return new ViewModel();
     }
 

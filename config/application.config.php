@@ -6,20 +6,14 @@
  * @see https://docs.zendframework.com/tutorials/advanced-config/#environment-specific-application-configuration
  */
 return [
-    // 开启测试模式
+    // 测试模式开关
     'debug_mode' => false,
 
-    // 开启身份认证
+    // 身份认证开关，如果设定为true或是注释此行，表示开启身份认证
     'authentication_required' => true,
 
-    // 开启权限控制
-    'authorization_required' => false,
-
-    // 开启身份验证
-    'authentication_required' => true,
-
-    // 开启权限验证
-    'authorization_required' => false,
+    // 权限控制开关，如果设定为true或是注释此行，表示开启权限控制
+    'authorization_required' => true,
     
     // Retrieve list of modules used in this application.
     'modules' => require __DIR__ . '/modules.config.php',

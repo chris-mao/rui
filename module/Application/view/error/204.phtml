@@ -1,7 +1,11 @@
-<?php $this->headTitle($this->translate('无匹配数据')); ?>
+<?php
+use Zend\Mvc\Application;
+?>
+
+<?php $this->headTitle($this->translate('数据迷路了')); ?>
 
 <div class='page-header'>
-    <h1 class='text-warning'><?= $this->translate('无匹配数据');?>
+    <h1 class='text-warning'><?= $this->translate('数据迷路了');?>
         <small class='text-info'>
         <?= $this->translate('没有匹配到符合条件的数据'); ?>
         </small>
@@ -24,16 +28,16 @@
             if (isset($this->reason) && $this->reason) {
                 $reasonMessage= '';
                 switch ($this->reason) {
-                    case 'error-controller-cannot-dispatch':
+                    case Application::ERROR_CONTROLLER_CANNOT_DISPATCH:
                         $reasonMessage = $this->translate('亲，控制器无法分发这个请求');
                         break;
-                    case 'error-controller-not-found':
+                    case Application::ERROR_CONTROLLER_NOT_FOUND:
                         $reasonMessage = $this->translate('亲，您请求的地址不能映射到一个存在的控制器');
                         break;
-                    case 'error-controller-invalid':
+                    case  Application::ERROR_CONTROLLER_INVALID:
                         $reasonMessage = $this->translate('亲，控制器无效');
                         break;
-                    case 'error-router-no-match':
+                    case APPLICATION::ERROR_ROUTER_NO_MATCH:
                         $reasonMessage = $this->translate('亲，您请求的地址没有匹配的路由');
                         break;
                     default:

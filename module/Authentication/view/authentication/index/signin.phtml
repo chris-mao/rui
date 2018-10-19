@@ -1,5 +1,3 @@
-<?php $this->headTitle($this->translate('登录到您的帐户')); ?>
-
 <script type="text/javascript">
     function submitform() {
         $(":submit").attr("disabled", true);
@@ -26,7 +24,7 @@
             <input type="hidden" id="goto" name="goto" value="<?php echo $this->goto; ?>"/>
             <span class="emerson"></span>
             <input type="text" class="form-control" id="login_name" name="login_name"
-                   placeholder="<?php echo $this->translate('登录名'); ?>" required autofocus autocomplete="off">
+                   placeholder="<?php echo $this->translate('登录帐号'); ?>" required autofocus autocomplete="off">
             <input type="password" class="form-control" id="password" name="password" autocomplete="off"
                    placeholder="<?php echo $this->translate('登录密码'); ?>" required>
             <div class="form-group text-right">
