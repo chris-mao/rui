@@ -74,4 +74,10 @@ return [
     // Initial configuration with which to seed the ServiceManager.
     // Should be compatible with Zend\ServiceManager\Config.
     // 'service_manager' => [],
+    'service_manager' => [
+        'factories' => [
+            'Application\Db\WriteAdapter' => Zend\Db\Adapter\AdapterAbstractServiceFactory::class,
+            'Application\Db\ReadOnlyAdapter' => Zend\Db\Adapter\AdapterAbstractServiceFactory::class,
+        ],
+    ],
 ];

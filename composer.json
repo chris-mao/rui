@@ -25,7 +25,8 @@
         "zendframework/zend-authentication": "^2.6",
         "zendframework/zend-db": "^2.9",
         "zendframework/zend-session": "^2.8",
-        "zendframework/zend-mvc-console": "^1.2"
+        "zendframework/zend-mvc-console": "^1.2",
+        "zendframework/zend-test": "^3.2"
     },
     "autoload": {
         "psr-4": {

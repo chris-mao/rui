@@ -15,7 +15,7 @@ use Zend\Authentication\Adapter\Ldap as LdapAdapter;
 use Authentication\Service\RuiAuthenticationService;
 
 /**
- * 读取全局配置文件<b>global.php</b>中的数据库适配器服务组件
+ * 读取全局配置文件<b>Glob.php</b>中的数据库适配器服务组件
  * 并指写用于身份认证的数据库表及相关字段信息
  *
  * Class AuthenticationServiceFactory
@@ -39,11 +39,11 @@ class AuthenticationServiceFactory implements FactoryInterface
     public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         try {
-            $dbAdapter = $container->get('MysqlAdapter');
+//            $writeAdapter = $container->get('Application\Db\WriteAdapter');
+            $readOnlyAdapter = $container->get('Application\Db\ReadOnlyAdapter');
             $storage = new Session('rui_1124');
 
-//            $authDatabaseAdapter = new RuiAuthenticationAdapter($dbAdapter, 'vw_auth_user', 'user_name', 'user_psd', "MD5(CONCAT('" . RuiAuthenticationService::STATIC_SALT . "', ?, salt))");
-            $authDatabaseAdapter = new CredentialTreatmentAdapter($dbAdapter, 'vw_auth_user', 'user_name', 'user_psd', "MD5(CONCAT('staticSalt', ?, salt))");
+            $authDatabaseAdapter = new CredentialTreatmentAdapter($readOnlyAdapter, 'vw_auth_user', 'user_name', 'user_psd', "MD5(CONCAT('staticSalt', ?, salt))");
 
             $ldapAdapter = new LdapAdapter();
             return new RuiAuthenticationService($storage, $authDatabaseAdapter, $ldapAdapter);
