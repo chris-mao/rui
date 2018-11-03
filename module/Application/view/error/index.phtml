@@ -1,3 +1,8 @@
+<?php
+if (get_class($this->exception) == 'Zend\Db\Adapter\Exception\RuntimeException') {
+    echo '数据库连接错误，请检查配置文件中数据连接信息是否正确';
+}
+?>
 <h1>An error occurred</h1>
 <h2><?= $this->message ?></h2>
 

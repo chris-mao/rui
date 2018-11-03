@@ -62,7 +62,7 @@ class Module implements ConfigProviderInterface
 //                            $response->sendHeaders();
 //                            $event->stopPropagation();
 //                        }
-//                    }, -100);
+//                    }, 999);
 //                    return $response;
                 } else {
                     var_dump('用户已完成身份认证');

@@ -13,6 +13,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\Authentication\Storage\Session;
 use Zend\Authentication\Adapter\Ldap as LdapAdapter;
 use Authentication\Service\RuiAuthenticationService;
+use Zend\Ldap\Ldap;
 
 /**
  * 读取全局配置文件<b>Glob.php</b>中的数据库适配器服务组件
@@ -41,12 +42,14 @@ class AuthenticationServiceFactory implements FactoryInterface
         try {
 //            $writeAdapter = $container->get('Application\Db\WriteAdapter');
             $readOnlyAdapter = $container->get('Application\Db\ReadOnlyAdapter');
-            $storage = new Session('rui_1124');
-
-            $authDatabaseAdapter = new CredentialTreatmentAdapter($readOnlyAdapter, 'vw_auth_user', 'user_name', 'user_psd', "MD5(CONCAT('staticSalt', ?, salt))");
+            $databaseAdapter = new CredentialTreatmentAdapter($readOnlyAdapter, 'vw_auth_user', 'user_name', 'user_psd', "MD5(CONCAT('staticSalt', ?, salt))");
 
             $ldapAdapter = new LdapAdapter();
-            return new RuiAuthenticationService($storage, $authDatabaseAdapter, $ldapAdapter);
+            $config = $container->get('config');
+            if (isset($config['ldap'])) {
+                $ldapAdapter->setLdap(new Ldap($config['ldap']));
+            }
+            return new RuiAuthenticationService(new Session('rui_1124'), $databaseAdapter, $ldapAdapter);
         } catch (NotFoundExceptionInterface $e) {
             throw new ServiceNotFoundException('系统中尚未定义数据库适配器', 0, $e);
         } catch (ContainerExceptionInterface $e) {
